@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gogo_password/theme/theme_constants.dart';
+import 'package:gogo_password/view/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'gogoPassword',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const Center(),
+      home: const HomePage(),
     );
   }
 }
