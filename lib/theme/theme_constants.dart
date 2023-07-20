@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme(
@@ -15,6 +16,7 @@ ThemeData lightTheme = ThemeData(
     onSurface: Colors.black87,
   ),
   hintColor: Colors.orange.shade600,
+  fontFamily: GoogleFonts.notoSans().fontFamily,
 );
 
 ThemeData darkTheme = ThemeData(
@@ -32,4 +34,5 @@ ThemeData darkTheme = ThemeData(
     onSurface: Colors.white,
   ),
   hintColor: Colors.deepOrange,
+  fontFamily: GoogleFonts.notoSans().fontFamily,
 );
