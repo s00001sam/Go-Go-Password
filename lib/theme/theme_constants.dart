@@ -16,7 +16,6 @@ ThemeData lightTheme = ThemeData(
     onSurface: Colors.black87,
   ),
   hintColor: Colors.orange.shade600,
-  fontFamily: GoogleFonts.notoSans().fontFamily,
 );
 
 ThemeData darkTheme = ThemeData(
@@ -34,5 +33,4 @@ ThemeData darkTheme = ThemeData(
     onSurface: Colors.white,
   ),
   hintColor: Colors.deepOrange,
-  fontFamily: GoogleFonts.notoSans().fontFamily,
 );
