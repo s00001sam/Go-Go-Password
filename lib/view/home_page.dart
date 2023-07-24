@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../generated/l10n.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -136,6 +138,8 @@ class MyTabBarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var stringResource = S.of(context);
+
     return Center(
       child: DefaultTabController(
         length: 4,
@@ -165,11 +169,11 @@ class MyTabBarContainer extends StatelessWidget {
                       ),
                       labelColor: Colors.white,
                       unselectedLabelColor: Colors.black87,
-                      tabs: const [
-                        Tab(text: '全部'),
-                        Tab(text: '登入'),
-                        Tab(text: '銀行'),
-                        Tab(text: '筆記'),
+                      tabs: [
+                        Tab(text: stringResource.tab_bar_title_all),
+                        Tab(text: stringResource.tab_bar_title_login),
+                        Tab(text: stringResource.tab_bar_title_bank),
+                        Tab(text: stringResource.tab_bar_title_note),
                       ],
                     ),
                   ),

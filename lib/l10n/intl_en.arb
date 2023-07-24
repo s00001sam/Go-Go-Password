@@ -1,0 +1,7 @@
+{
+  "app_name": "gogoPassword",
+  "tab_bar_title_all": "ALL",
+  "tab_bar_title_login": "LOGIN",
+  "tab_bar_title_bank": "BANK",
+  "tab_bar_title_note": "NOTES"
+}
