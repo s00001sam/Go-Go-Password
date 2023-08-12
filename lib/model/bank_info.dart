@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:gogo_password/model/base_secure_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +13,7 @@ class BankInfo extends BaseSecureInfo {
   String bankCode;
   String holderName;
   String note;
-  String publishTime;
+  int publishTime;
   BankType type;
 
   // 銀行賬戶
@@ -45,61 +47,12 @@ class BankInfo extends BaseSecureInfo {
     this.expirationDate,
     this.cvv,
   }) : super(
+          id: publishTime.toString(),
           title: name,
           description: account ?? cardNumber ?? '',
           publishTime: publishTime,
           imageUrl: bankImageUrl,
         );
-
-  BankInfo createBankCard(
-      String name,
-      String bankImageUrl,
-      String bankCode,
-      String holderName,
-      String note,
-      String publishTime,
-      String account,
-      String cardPassword,
-      ) {
-    return BankInfo(
-      name: name,
-      bankImageUrl: bankImageUrl,
-      bankCode: bankCode,
-      holderName: holderName,
-      note: note,
-      publishTime: publishTime,
-      type: BankType.bankAccount,
-      account: account,
-      cardPassword: cardPassword,
-    );
-  }
-
-  BankInfo createCreditCard(
-      String name,
-      String bankImageUrl,
-      String bankCode,
-      String holderName,
-      String note,
-      String publishTime,
-      String cardNumber,
-      CreditCardType creditCardType,
-      String expirationDate,
-      String cvv,
-      ) {
-    return BankInfo(
-      name: name,
-      bankImageUrl: bankImageUrl,
-      bankCode: bankCode,
-      holderName: holderName,
-      note: note,
-      publishTime: publishTime,
-      type: BankType.creditCard,
-      cardNumber: cardNumber,
-      creditCardType: creditCardType,
-      expirationDate: expirationDate,
-      cvv: cvv,
-    );
-  }
 
   @override
   bool operator ==(Object other) =>
@@ -147,7 +100,7 @@ class BankInfo extends BaseSecureInfo {
     String? bankCode,
     String? holderName,
     String? note,
-    String? publishTime,
+    int? publishTime,
     BankType? type,
     String? account,
     String? cardPassword,
@@ -198,7 +151,7 @@ class BankInfo extends BaseSecureInfo {
       bankCode: map['bankCode'] as String,
       holderName: map['holderName'] as String,
       note: map['note'] as String,
-      publishTime: map['publishTime'] as String,
+      publishTime: map['publishTime'] as int,
       type: map['type'] as BankType,
       account: map['account'] as String,
       cardPassword: map['cardPassword'] as String,
@@ -210,6 +163,56 @@ class BankInfo extends BaseSecureInfo {
   }
 
 //</editor-fold>
+}
+
+BankInfo createBankCard(
+  String name,
+  String bankImageUrl,
+  String bankCode,
+  String holderName,
+  String note,
+  int publishTime,
+  String account,
+  String cardPassword,
+) {
+  return BankInfo(
+    name: name,
+    bankImageUrl: bankImageUrl,
+    bankCode: bankCode,
+    holderName: holderName,
+    note: note,
+    publishTime: publishTime,
+    type: BankType.bankAccount,
+    account: account,
+    cardPassword: cardPassword,
+  );
+}
+
+BankInfo createCreditCard(
+  String name,
+  String bankImageUrl,
+  String bankCode,
+  String holderName,
+  String note,
+  int publishTime,
+  String cardNumber,
+  CreditCardType creditCardType,
+  String expirationDate,
+  String cvv,
+) {
+  return BankInfo(
+    name: name,
+    bankImageUrl: bankImageUrl,
+    bankCode: bankCode,
+    holderName: holderName,
+    note: note,
+    publishTime: publishTime,
+    type: BankType.creditCard,
+    cardNumber: cardNumber,
+    creditCardType: creditCardType,
+    expirationDate: expirationDate,
+    cvv: cvv,
+  );
 }
 
 enum BankType {

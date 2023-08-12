@@ -99,6 +99,26 @@ class S {
       args: [],
     );
   }
+
+  /// `total {count}`
+  String secure_info_total_count(int count) {
+    return Intl.message(
+      'total $count',
+      name: 'secure_info_total_count',
+      desc: 'Show secure information total count',
+      args: [count],
+    );
+  }
+
+  /// `Add first password`
+  String get empty_description {
+    return Intl.message(
+      'Add first password',
+      name: 'empty_description',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

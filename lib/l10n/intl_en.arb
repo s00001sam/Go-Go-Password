@@ -3,5 +3,15 @@
   "tab_bar_title_all": "ALL",
   "tab_bar_title_login": "LOGIN",
   "tab_bar_title_bank": "BANK",
-  "tab_bar_title_note": "NOTES"
+  "tab_bar_title_note": "NOTES",
+  "secure_info_total_count": "total {count}",
+  "@secure_info_total_count": {
+    "description": "Show secure information total count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "empty_description": "Add first password"
 }

@@ -9,7 +9,7 @@ class NoteInfo extends BaseSecureInfo {
   String name;
   String noteImageUrl;
   String note;
-  String publishTime;
+  int publishTime;
   List<String> recordFiles;
 
   factory NoteInfo.fromJson(Map<String, dynamic> json) =>
@@ -25,6 +25,7 @@ class NoteInfo extends BaseSecureInfo {
     required this.publishTime,
     required this.recordFiles,
   }) : super(
+          id: publishTime.toString(),
           title: name,
           description: '',
           publishTime: publishTime,
@@ -59,7 +60,7 @@ class NoteInfo extends BaseSecureInfo {
     String? name,
     String? noteImageUrl,
     String? note,
-    String? publishTime,
+    int? publishTime,
     List<String>? recordFiles,
   }) {
     return NoteInfo(
@@ -86,7 +87,7 @@ class NoteInfo extends BaseSecureInfo {
       name: map['name'] as String,
       noteImageUrl: map['noteImageUrl'] as String,
       note: map['note'] as String,
-      publishTime: map['publishTime'] as String,
+      publishTime: map['publishTime'] as int,
       recordFiles: map['recordFiles'] as List<String>,
     );
   }

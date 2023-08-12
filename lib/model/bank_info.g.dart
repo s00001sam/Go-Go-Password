@@ -12,7 +12,7 @@ BankInfo _$BankInfoFromJson(Map<String, dynamic> json) => BankInfo(
       bankCode: json['bankCode'] as String,
       holderName: json['holderName'] as String,
       note: json['note'] as String,
-      publishTime: json['publishTime'] as String,
+      publishTime: json['publishTime'] as int,
       type: $enumDecode(_$BankTypeEnumMap, json['type']),
       account: json['account'] as String?,
       cardPassword: json['cardPassword'] as String?,
@@ -22,11 +22,13 @@ BankInfo _$BankInfoFromJson(Map<String, dynamic> json) => BankInfo(
       expirationDate: json['expirationDate'] as String?,
       cvv: json['cvv'] as String?,
     )
+      ..id = json['id'] as String
       ..title = json['title'] as String
       ..description = json['description'] as String
       ..imageUrl = json['imageUrl'] as String;
 
 Map<String, dynamic> _$BankInfoToJson(BankInfo instance) => <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'imageUrl': instance.imageUrl,

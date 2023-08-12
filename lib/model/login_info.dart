@@ -12,7 +12,7 @@ class LoginInfo extends BaseSecureInfo {
   String account;
   String password;
   String note;
-  String publishTime;
+  int publishTime;
 
   factory LoginInfo.fromJson(Map<String, dynamic> json) =>
       _$LoginInfoFromJson(json);
@@ -29,8 +29,9 @@ class LoginInfo extends BaseSecureInfo {
     required this.note,
     required this.publishTime,
   }) : super(
+          id: publishTime.toString(),
           title: name,
-          description: webUrl,
+          description: account,
           publishTime: publishTime,
           imageUrl: webImageUrl,
         );
@@ -60,7 +61,7 @@ class LoginInfo extends BaseSecureInfo {
 
   @override
   String toString() {
-    return 'PasswordInfo{ name: $name, webUrl: $webUrl, webImageUrl: $webImageUrl, account: $account, password: $password, note: $note, publishTime: $publishTime}';
+    return 'LoginInfo{ name: $name, webUrl: $webUrl, webImageUrl: $webImageUrl, account: $account, password: $password, note: $note, publishTime: $publishTime,}';
   }
 
   LoginInfo copyWith({
@@ -70,7 +71,7 @@ class LoginInfo extends BaseSecureInfo {
     String? account,
     String? password,
     String? note,
-    String? publishTime,
+    int? publishTime,
   }) {
     return LoginInfo(
       name: name ?? this.name,
@@ -103,7 +104,7 @@ class LoginInfo extends BaseSecureInfo {
       account: map['account'] as String,
       password: map['password'] as String,
       note: map['note'] as String,
-      publishTime: map['publishTime'] as String,
+      publishTime: map['publishTime'] as int,
     );
   }
 

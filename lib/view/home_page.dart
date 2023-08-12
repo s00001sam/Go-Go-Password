@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:gogo_password/model/base_secure_info.dart';
+import 'package:gogo_password/view/common.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../generated/l10n.dart';
@@ -179,27 +181,153 @@ class MyTabBarContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                   child: TabBarView(
                 children: [
-                  // TODO : 待修改為正式頁面
+                  // All
                   Center(
-                    child: Text('全部列表'),
+                    child: SecureInfosPage(secureInfos: const []),
                   ),
+                  // Login
                   Center(
-                    child: Text('登入列表'),
+                    child: SecureInfosPage(secureInfos: const []),
                   ),
+                  // Bank
                   Center(
-                    child: Text('銀行列表'),
+                    child: SecureInfosPage(secureInfos: const []),
                   ),
+                  // Notes
                   Center(
-                    child: Text('筆記列表'),
+                    child: SecureInfosPage(secureInfos: const []),
                   ),
                 ],
               )),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SecureInfosPage extends StatelessWidget {
+  List<BaseSecureInfo> secureInfos;
+
+  SecureInfosPage({
+    required this.secureInfos,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    int count = secureInfos.length;
+    if (count <= 0) return EmptyView(onTap: () {});
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          SecureInfoTitle(count: count),
+          Expanded(
+            child: ListView.builder(
+              itemCount: count,
+              itemBuilder: (BuildContext context, int index) {
+                if (secureInfos.isEmpty) return const Center();
+                var item = secureInfos[index];
+                return SecureInfoItem(secureInfo: item);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SecureInfoTitle extends StatelessWidget {
+  int count;
+
+  SecureInfoTitle({required this.count, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var stringResource = S.of(context);
+    var theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0, left: 4.0, right: 4.0),
+      child: Row(
+        children: [
+          Text(
+            stringResource.secure_info_total_count(count), // sam00 100
+            style: theme.textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.normal,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
+          const Spacer(),
+          Image.asset(
+            "assets/images/ic_sort_time_normal.png",
+            fit: BoxFit.contain,
+            width: 24.0,
+            height: 24.0,
+            color: theme.colorScheme.onSurface,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SecureInfoItem extends StatelessWidget {
+  BaseSecureInfo secureInfo;
+
+  SecureInfoItem({
+    required this.secureInfo,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CachedNetworkImage(
+            width: 50.0,
+            height: 50.0,
+            fit: BoxFit.fill,
+            imageUrl: secureInfo.imageUrl,
+            placeholder: (context, url) => Container(color: Colors.black12),
+          ),
+          const SizedBox(width: 24.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                secureInfo.title,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 12.0),
+              Text(
+                secureInfo.description,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

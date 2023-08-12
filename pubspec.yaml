@@ -38,6 +38,8 @@ dependencies:
   google_fonts: ^5.1.0
   intl_utils: ^2.8.3
   json_annotation: ^4.8.1
+  cached_network_image: ^3.2.3
+
   flutter_localizations:
     sdk: flutter
 
@@ -73,6 +75,10 @@ flutter:
     - assets/images/ic_plus.png
     - assets/images/ic_setting.png
     - assets/images/ic_search.png
+    - assets/images/ic_sort_a_z.png
+    - assets/images/ic_sort_z_a.png
+    - assets/images/ic_sort_time_reverse.png
+    - assets/images/ic_sort_time_normal.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

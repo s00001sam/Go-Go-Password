@@ -20,9 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
+  static String m0(count) => "總共 ${count} 筆";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("gogoPassword"),
+        "empty_description": MessageLookupByLibrary.simpleMessage("新增第一筆資料"),
+        "secure_info_total_count": m0,
         "tab_bar_title_all": MessageLookupByLibrary.simpleMessage("全部"),
         "tab_bar_title_bank": MessageLookupByLibrary.simpleMessage("銀行"),
         "tab_bar_title_login": MessageLookupByLibrary.simpleMessage("登入"),
