@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gogo_password/model/base_secure_info.dart';
 import 'package:gogo_password/view/common.dart';
+import 'package:gogo_password/view/dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../generated/l10n.dart';
@@ -54,18 +55,24 @@ class HomeTitleRow extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Image.asset(
-          "assets/images/ic_plus.png",
-          fit: BoxFit.contain,
-          width: 24.0,
-          height: 24.0,
+        GestureDetector(
+          onTap: () {},
+          child: Image.asset(
+            "assets/images/ic_plus.png",
+            fit: BoxFit.contain,
+            width: 24.0,
+            height: 24.0,
+          ),
         ),
         const SizedBox(width: 20.0),
-        Image.asset(
-          "assets/images/ic_setting.png",
-          fit: BoxFit.contain,
-          width: 24.0,
-          height: 24.0,
+        GestureDetector(
+          onTap: () {},
+          child: Image.asset(
+            "assets/images/ic_setting.png",
+            fit: BoxFit.contain,
+            width: 24.0,
+            height: 24.0,
+          ),
         ),
       ],
     );
