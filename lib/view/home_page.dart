@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gogo_password/model/base_secure_info.dart';
 import 'package:gogo_password/view/common.dart';
-import 'package:gogo_password/view/dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../generated/l10n.dart';

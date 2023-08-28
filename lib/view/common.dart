@@ -3,6 +3,7 @@ import 'package:gogo_password/generated/l10n.dart';
 
 class EmptyView extends StatelessWidget {
   final Function()? onTap;
+
   const EmptyView({required this.onTap, Key? key}) : super(key: key);
 
   @override
@@ -41,4 +42,38 @@ class EmptyView extends StatelessWidget {
       ),
     );
   }
+}
+
+class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
+  String title;
+  final Function()? onBackListener;
+
+  BaseAppBar({required this.title, this.onBackListener, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    return AppBar(
+      backgroundColor: theme.colorScheme.primary,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: theme.colorScheme.onPrimary,
+        ),
+        onPressed: () {
+          onBackListener?.call();
+          Navigator.of(context).pop();
+        },
+      ),
+      title: Text(
+        title,
+        style: theme.textTheme.headlineLarge?.copyWith(
+          color: theme.colorScheme.onPrimary,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
