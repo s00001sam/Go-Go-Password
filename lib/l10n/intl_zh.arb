@@ -5,5 +5,12 @@
   "tab_bar_title_bank": "銀行",
   "tab_bar_title_note": "筆記",
   "secure_info_total_count": "總共 {count} 筆",
-  "empty_description": "新增第一筆資料"
+  "empty_description": "新增第一筆資料",
+  "edit_title": "編輯 {title}",
+  "input_hint": "請輸入{item}",
+  "input_title_name": "名稱",
+  "input_title_web_url": "網址",
+  "input_title_account": "帳號",
+  "input_title_password": "密碼",
+  "input_title_note": "備註"
 }

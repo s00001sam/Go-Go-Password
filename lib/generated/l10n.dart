@@ -119,6 +119,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Edit {title}`
+  String edit_title(String title) {
+    return Intl.message(
+      'Edit $title',
+      name: 'edit_title',
+      desc: 'Show editor title',
+      args: [title],
+    );
+  }
+
+  /// `enter {item}`
+  String input_hint(String item) {
+    return Intl.message(
+      'enter $item',
+      name: 'input_hint',
+      desc: 'input hint',
+      args: [item],
+    );
+  }
+
+  /// `Name`
+  String get input_title_name {
+    return Intl.message(
+      'Name',
+      name: 'input_title_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Web Url`
+  String get input_title_web_url {
+    return Intl.message(
+      'Web Url',
+      name: 'input_title_web_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get input_title_account {
+    return Intl.message(
+      'Account',
+      name: 'input_title_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get input_title_password {
+    return Intl.message(
+      'Password',
+      name: 'input_title_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note`
+  String get input_title_note {
+    return Intl.message(
+      'Note',
+      name: 'input_title_note',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

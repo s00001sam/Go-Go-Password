@@ -13,5 +13,28 @@
       }
     }
   },
-  "empty_description": "Add first password"
+  "empty_description": "Add first password",
+  "edit_title": "Edit {title}",
+  "@edit_title": {
+    "description": "Show editor title",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "input_hint": "enter {item}",
+  "@input_hint": {
+    "description": "input hint",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "input_title_name": "Name",
+  "input_title_web_url": "Web Url",
+  "input_title_account": "Account",
+  "input_title_password": "Password",
+  "input_title_note": "Note"
 }

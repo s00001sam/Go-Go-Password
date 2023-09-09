@@ -20,13 +20,24 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
-  static String m0(count) => "總共 ${count} 筆";
+  static String m0(title) => "編輯 ${title}";
+
+  static String m1(item) => "請輸入${item}";
+
+  static String m2(count) => "總共 ${count} 筆";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("gogoPassword"),
+        "edit_title": m0,
         "empty_description": MessageLookupByLibrary.simpleMessage("新增第一筆資料"),
-        "secure_info_total_count": m0,
+        "input_hint": m1,
+        "input_title_account": MessageLookupByLibrary.simpleMessage("帳號"),
+        "input_title_name": MessageLookupByLibrary.simpleMessage("名稱"),
+        "input_title_note": MessageLookupByLibrary.simpleMessage("備註"),
+        "input_title_password": MessageLookupByLibrary.simpleMessage("密碼"),
+        "input_title_web_url": MessageLookupByLibrary.simpleMessage("網址"),
+        "secure_info_total_count": m2,
         "tab_bar_title_all": MessageLookupByLibrary.simpleMessage("全部"),
         "tab_bar_title_bank": MessageLookupByLibrary.simpleMessage("銀行"),
         "tab_bar_title_login": MessageLookupByLibrary.simpleMessage("登入"),

@@ -20,14 +20,26 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) => "total ${count}";
+  static String m0(title) => "Edit ${title}";
+
+  static String m1(item) => "enter ${item}";
+
+  static String m2(count) => "total ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("gogoPassword"),
+        "edit_title": m0,
         "empty_description":
             MessageLookupByLibrary.simpleMessage("Add first password"),
-        "secure_info_total_count": m0,
+        "input_hint": m1,
+        "input_title_account": MessageLookupByLibrary.simpleMessage("Account"),
+        "input_title_name": MessageLookupByLibrary.simpleMessage("Name"),
+        "input_title_note": MessageLookupByLibrary.simpleMessage("Note"),
+        "input_title_password":
+            MessageLookupByLibrary.simpleMessage("Password"),
+        "input_title_web_url": MessageLookupByLibrary.simpleMessage("Web Url"),
+        "secure_info_total_count": m2,
         "tab_bar_title_all": MessageLookupByLibrary.simpleMessage("ALL"),
         "tab_bar_title_bank": MessageLookupByLibrary.simpleMessage("BANK"),
         "tab_bar_title_login": MessageLookupByLibrary.simpleMessage("LOGIN"),
