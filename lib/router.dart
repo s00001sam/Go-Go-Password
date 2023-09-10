@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gogo_password/model/login_info.dart';
 import 'package:gogo_password/view/login_info_content_page.dart';
 import 'package:gogo_password/view/home_page.dart';
 
@@ -18,7 +19,8 @@ final GoRouter myRouter = GoRouter(
         GoRoute(
           path: loginContent,
           builder: (BuildContext context, GoRouterState state) {
-            return const LoginInfoContentPage(info: null);
+            var loginInfo = state.extra as LoginInfo?;
+            return LoginInfoContentPage(info: loginInfo);
           },
         ),
       ],

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gogo_password/model/base_secure_info.dart';
+import 'package:gogo_password/model/login_info.dart';
 import 'package:gogo_password/router.dart';
 import 'package:gogo_password/view/common.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,7 +59,7 @@ class HomeTitleRow extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            context.go(routerLoginContent);
+            context.go(routerLoginContent, extra: null);
           },
           child: Image.asset(
             "assets/images/ic_plus.png",

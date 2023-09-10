@@ -88,6 +88,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
 class BaseInput extends StatelessWidget {
   final String title;
   final String hint;
+  final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
   final Function(String)? onInputChanged;
@@ -95,6 +96,7 @@ class BaseInput extends StatelessWidget {
   const BaseInput({
     required this.title,
     required this.hint,
+    this.focusNode,
     this.isMultiLine = false,
     required this.isEnabled,
     required this.onInputChanged,
@@ -116,6 +118,7 @@ class BaseInput extends StatelessWidget {
         const SizedBox(height: 12.0),
         BaseInputTextField(
           hint: hint,
+          focusNode: focusNode,
           isMultiLine: isMultiLine,
           isEnabled: isEnabled,
           onInputChanged: onInputChanged,
@@ -127,12 +130,14 @@ class BaseInput extends StatelessWidget {
 
 class BaseInputTextField extends StatefulWidget {
   final String hint;
+  final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
   final Function(String)? onInputChanged;
 
   const BaseInputTextField({
     required this.hint,
+    this.focusNode,
     required this.isMultiLine,
     required this.isEnabled,
     required this.onInputChanged,
@@ -204,6 +209,7 @@ class _BaseInputTextFieldState extends State<BaseInputTextField> {
       controller: _myController,
       enabled: widget.isEnabled,
       maxLines: maxLines,
+      focusNode: widget.focusNode,
     );
   }
 }
