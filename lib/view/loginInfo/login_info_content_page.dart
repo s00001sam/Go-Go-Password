@@ -39,9 +39,12 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
         ref.watch(contentEditStateProvider) == ContentEditState.editing;
     final stateReading = ref.read(contentEditStateProvider.notifier);
     var stringResource = S.of(context);
-    final loginInfo = ref.watch(getLoginInfoProvider(widget.id ?? ''));
+    final loginInfo = ref.watch(getLoginInfoProvider(widget.id));
     var actionIcon = isEditing ? Icons.done : Icons.edit;
-    var title = '';
+    var loginStr = stringResource.tab_bar_title_login;
+    var title = isEditing
+        ? stringResource.edit_title(loginStr)
+        : ref.watch(loginInfoContentViewModelProvider.notifier).title;
 
     return Scaffold(
         appBar: BaseAppBar(
@@ -63,11 +66,6 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
         ),
         body: loginInfo.when(
           data: (data) {
-            var loginStr = stringResource.tab_bar_title_login;
-            var name = data.name;
-            setState(() {
-              title = isEditing ? stringResource.edit_title(loginStr) : name;
-            });
             var nameFocusNode = FocusNode();
             if (isEditing) nameFocusNode.requestFocus();
 
@@ -76,8 +74,8 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
               nameFocusNode: nameFocusNode,
             );
           },
-          error: (error, stackTrace) => const Center(),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stackTrace) => ErrorView(error: error.toString()),
+          loading: () => const LoadingView(),
         ));
   }
 }

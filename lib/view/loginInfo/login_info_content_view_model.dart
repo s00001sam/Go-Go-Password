@@ -18,9 +18,13 @@ final contentEditStateProvider = StateProvider.autoDispose<ContentEditState>(
 class LoginInfoContentViewModel extends StateNotifier<bool> {
   LoginInfoContentViewModel() : super(false);
 
-  Future<LoginInfo> getLoginInfo(String id) async {
+  var title = '';
+
+  Future<LoginInfo?> getLoginInfo(String id) async {
     // TODO : change to use repository
-    Future.delayed(const Duration(seconds: 2));
-    return login1;
+    Future.delayed(const Duration(seconds: 10));
+    var loginInfo = login1;
+    title = loginInfo.title;
+    return loginInfo;
   }
 }

@@ -256,9 +256,9 @@ class SecureInfosPage extends StatelessWidget {
 }
 
 class SecureInfoTitle extends StatelessWidget {
-  int count;
+  final int count;
 
-  SecureInfoTitle({required this.count, Key? key}) : super(key: key);
+  const SecureInfoTitle({required this.count, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -291,9 +291,9 @@ class SecureInfoTitle extends StatelessWidget {
 }
 
 class SecureInfoItem extends StatelessWidget {
-  BaseSecureInfo secureInfo;
+  final BaseSecureInfo secureInfo;
 
-  SecureInfoItem({
+  const SecureInfoItem({
     required this.secureInfo,
     Key? key,
   }) : super(key: key);
