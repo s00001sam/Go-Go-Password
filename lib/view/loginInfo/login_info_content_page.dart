@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gogo_password/generated/l10n.dart';
-import 'package:gogo_password/model/login_info.dart';
-import 'package:gogo_password/util/providers.dart';
+import 'package:gogo_password/util/constants.dart';
 import 'package:gogo_password/view/common.dart';
+import 'login_info_content_view_model.dart';
 
 class LoginInfoContentPage extends ConsumerStatefulWidget {
-  final LoginInfo? info;
+  final bool isEditor;
+  final String id;
 
-  const LoginInfoContentPage({required this.info, Key? key}) : super(key: key);
+  const LoginInfoContentPage({
+    required this.isEditor,
+    required this.id,
+    Key? key,
+  }) : super(key: key);
 
   @override
   ConsumerState<LoginInfoContentPage> createState() =>
@@ -21,9 +26,9 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // handle init state is editing or not
-      var isEditingInit = widget.info == null;
-      var stateInit =
-          isEditingInit ? ContentEditState.editing : ContentEditState.onlyRead;
+      var stateInit = widget.isEditor
+          ? ContentEditState.editing
+          : ContentEditState.onlyRead;
       ref.read(contentEditStateProvider.notifier).state = stateInit;
     });
   }
@@ -34,36 +39,46 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
         ref.watch(contentEditStateProvider) == ContentEditState.editing;
     final stateReading = ref.read(contentEditStateProvider.notifier);
     var stringResource = S.of(context);
-    var loginStr = stringResource.tab_bar_title_login;
-    var name = widget.info?.name ?? '';
-    var title = isEditing ? stringResource.edit_title(loginStr) : name;
+    final loginInfo = ref.watch(getLoginInfoProvider(widget.id ?? ''));
     var actionIcon = isEditing ? Icons.done : Icons.edit;
-    var nameFocusNode = FocusNode();
-    if (isEditing) nameFocusNode.requestFocus();
+    var title = '';
 
     return Scaffold(
-      appBar: BaseAppBar(
-        title: title,
-        actions: [
-          IconButton(
-            icon: Icon(actionIcon),
-            tooltip: 'change editable mode',
-            onPressed: () {
-              if (isEditing) {
-                // TODO save logic
-                stateReading.state = ContentEditState.onlyRead;
-              } else {
-                stateReading.state = ContentEditState.editing;
-              }
-            },
-          ),
-        ],
-      ),
-      body: LoginInfoContentBody(
-        isEditing: isEditing,
-        nameFocusNode: nameFocusNode,
-      ),
-    );
+        appBar: BaseAppBar(
+          title: title,
+          actions: [
+            IconButton(
+              icon: Icon(actionIcon),
+              tooltip: 'change editable mode',
+              onPressed: () {
+                if (isEditing) {
+                  // TODO save logic
+                  stateReading.state = ContentEditState.onlyRead;
+                } else {
+                  stateReading.state = ContentEditState.editing;
+                }
+              },
+            ),
+          ],
+        ),
+        body: loginInfo.when(
+          data: (data) {
+            var loginStr = stringResource.tab_bar_title_login;
+            var name = data.name;
+            setState(() {
+              title = isEditing ? stringResource.edit_title(loginStr) : name;
+            });
+            var nameFocusNode = FocusNode();
+            if (isEditing) nameFocusNode.requestFocus();
+
+            return LoginInfoContentBody(
+              isEditing: isEditing,
+              nameFocusNode: nameFocusNode,
+            );
+          },
+          error: (error, stackTrace) => const Center(),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        ));
   }
 }
 

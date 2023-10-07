@@ -11,8 +11,9 @@ BaseSecureInfo _$BaseSecureInfoFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      publishTime: json['publishTime'] as int,
       imageUrl: json['imageUrl'] as String,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
     );
 
 Map<String, dynamic> _$BaseSecureInfoToJson(BaseSecureInfo instance) =>
@@ -20,6 +21,7 @@ Map<String, dynamic> _$BaseSecureInfoToJson(BaseSecureInfo instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'publishTime': instance.publishTime,
       'imageUrl': instance.imageUrl,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
     };

@@ -13,7 +13,8 @@ LoginInfo _$LoginInfoFromJson(Map<String, dynamic> json) => LoginInfo(
       account: json['account'] as String,
       password: json['password'] as String,
       note: json['note'] as String,
-      publishTime: json['publishTime'] as int,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
     )
       ..id = json['id'] as String
       ..title = json['title'] as String
@@ -31,5 +32,6 @@ Map<String, dynamic> _$LoginInfoToJson(LoginInfo instance) => <String, dynamic>{
       'account': instance.account,
       'password': instance.password,
       'note': instance.note,
-      'publishTime': instance.publishTime,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
     };

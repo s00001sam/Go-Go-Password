@@ -10,10 +10,8 @@ NoteInfo _$NoteInfoFromJson(Map<String, dynamic> json) => NoteInfo(
       name: json['name'] as String,
       noteImageUrl: json['noteImageUrl'] as String,
       note: json['note'] as String,
-      publishTime: json['publishTime'] as int,
-      recordFiles: (json['recordFiles'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
     )
       ..id = json['id'] as String
       ..title = json['title'] as String
@@ -28,6 +26,6 @@ Map<String, dynamic> _$NoteInfoToJson(NoteInfo instance) => <String, dynamic>{
       'name': instance.name,
       'noteImageUrl': instance.noteImageUrl,
       'note': instance.note,
-      'publishTime': instance.publishTime,
-      'recordFiles': instance.recordFiles,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
     };

@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gogo_password/model/base_secure_info.dart';
-import 'package:gogo_password/model/login_info.dart';
 import 'package:gogo_password/router.dart';
 import 'package:gogo_password/view/common.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../generated/l10n.dart';
+import '../../generated/l10n.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -59,7 +57,10 @@ class HomeTitleRow extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            context.go(routerLoginContent, extra: null);
+            goLoginInfoContent(
+              context: context,
+              isEditor: true,
+            );
           },
           child: Image.asset(
             "assets/images/ic_plus.png",

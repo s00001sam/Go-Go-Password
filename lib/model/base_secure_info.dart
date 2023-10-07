@@ -8,8 +8,9 @@ class BaseSecureInfo {
   String id;
   String title; // 標題
   String description; // 內容
-  int publishTime; // 上傳時間
   String imageUrl; // 照片
+  int createdTime; // 創建時間
+  int updatedTime; // 更新時間
 
   factory BaseSecureInfo.fromJson(Map<String, dynamic> json) =>
       _$BaseSecureInfoFromJson(json);
@@ -21,8 +22,9 @@ class BaseSecureInfo {
     required this.id,
     required this.title,
     required this.description,
-    required this.publishTime,
     required this.imageUrl,
+    required this.createdTime,
+    required this.updatedTime,
   });
 
   @override
@@ -33,45 +35,50 @@ class BaseSecureInfo {
           id == other.id &&
           title == other.title &&
           description == other.description &&
-          publishTime == other.publishTime &&
-          imageUrl == other.imageUrl);
+          imageUrl == other.imageUrl &&
+          createdTime == other.createdTime &&
+          updatedTime == other.updatedTime);
 
   @override
   int get hashCode =>
       id.hashCode ^
       title.hashCode ^
       description.hashCode ^
-      publishTime.hashCode ^
-      imageUrl.hashCode;
+      imageUrl.hashCode ^
+      createdTime.hashCode ^
+      updatedTime.hashCode;
 
   @override
   String toString() {
-    return 'BaseSecureInfo{ id: $id, title: $title, description: $description, publishTime: $publishTime, imageUrl: $imageUrl,}';
+    return 'BaseSecureInfo{ id: $id, title: $title, description: $description, imageUrl: $imageUrl, createdTime: $createdTime, updatedTime: $updatedTime,}';
   }
 
-  BaseSecureInfo copy({
+  BaseSecureInfo copyWith({
     String? id,
     String? title,
     String? description,
-    int? publishTime,
     String? imageUrl,
+    int? createdTime,
+    int? updatedTime,
   }) {
     return BaseSecureInfo(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      publishTime: publishTime ?? this.publishTime,
       imageUrl: imageUrl ?? this.imageUrl,
+      createdTime: createdTime ?? this.createdTime,
+      updatedTime: updatedTime ?? this.updatedTime,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.id,
-      'title': this.title,
-      'description': this.description,
-      'publishTime': this.publishTime,
-      'imageUrl': this.imageUrl,
+      'id': id,
+      'title': title,
+      'description': description,
+      'imageUrl': imageUrl,
+      'createdTime': createdTime,
+      'updatedTime': updatedTime,
     };
   }
 
@@ -80,8 +87,9 @@ class BaseSecureInfo {
       id: map['id'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
-      publishTime: map['publishTime'] as int,
       imageUrl: map['imageUrl'] as String,
+      createdTime: map['createdTime'] as int,
+      updatedTime: map['updatedTime'] as int,
     );
   }
 

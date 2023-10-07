@@ -13,7 +13,8 @@ class BankInfo extends BaseSecureInfo {
   String bankCode;
   String holderName;
   String note;
-  int publishTime;
+  int createdTime;
+  int updatedTime;
   BankType type;
 
   // 銀行賬戶
@@ -29,6 +30,7 @@ class BankInfo extends BaseSecureInfo {
   factory BankInfo.fromJson(Map<String, dynamic> json) =>
       _$BankInfoFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$BankInfoToJson(this);
 
 //<editor-fold desc="Data Methods">
@@ -38,7 +40,8 @@ class BankInfo extends BaseSecureInfo {
     required this.bankCode,
     required this.holderName,
     required this.note,
-    required this.publishTime,
+    required this.createdTime,
+    required this.updatedTime,
     required this.type,
     this.account,
     this.cardPassword,
@@ -47,11 +50,12 @@ class BankInfo extends BaseSecureInfo {
     this.expirationDate,
     this.cvv,
   }) : super(
-          id: publishTime.toString(),
+          id: createdTime.toString(),
           title: name,
           description: account ?? cardNumber ?? '',
-          publishTime: publishTime,
           imageUrl: bankImageUrl,
+          createdTime: createdTime,
+          updatedTime: updatedTime,
         );
 
   @override
@@ -64,7 +68,8 @@ class BankInfo extends BaseSecureInfo {
           bankCode == other.bankCode &&
           holderName == other.holderName &&
           note == other.note &&
-          publishTime == other.publishTime &&
+          createdTime == other.createdTime &&
+          updatedTime == other.updatedTime &&
           type == other.type &&
           account == other.account &&
           cardPassword == other.cardPassword &&
@@ -80,7 +85,8 @@ class BankInfo extends BaseSecureInfo {
       bankCode.hashCode ^
       holderName.hashCode ^
       note.hashCode ^
-      publishTime.hashCode ^
+      createdTime.hashCode ^
+      updatedTime.hashCode ^
       type.hashCode ^
       account.hashCode ^
       cardPassword.hashCode ^
@@ -91,16 +97,17 @@ class BankInfo extends BaseSecureInfo {
 
   @override
   String toString() {
-    return 'BankInfo{ name: $name, bankImageUrl: $bankImageUrl, bankCode: $bankCode, holderName: $holderName, note: $note, publishTime: $publishTime, type: $type, account: $account, cardPassword: $cardPassword, cardNumber: $cardNumber, creditCardType: $creditCardType, expirationDate: $expirationDate, cvv: $cvv,}';
+    return 'BankInfo{ name: $name, bankImageUrl: $bankImageUrl, bankCode: $bankCode, holderName: $holderName, note: $note, createdTime: $createdTime, updatedTime: $updatedTime, type: $type, account: $account, cardPassword: $cardPassword, cardNumber: $cardNumber, creditCardType: $creditCardType, expirationDate: $expirationDate, cvv: $cvv,}';
   }
 
-  BankInfo copyWith({
+  BankInfo copy({
     String? name,
     String? bankImageUrl,
     String? bankCode,
     String? holderName,
     String? note,
-    int? publishTime,
+    int? createdTime,
+    int? updatedTime,
     BankType? type,
     String? account,
     String? cardPassword,
@@ -115,7 +122,8 @@ class BankInfo extends BaseSecureInfo {
       bankCode: bankCode ?? this.bankCode,
       holderName: holderName ?? this.holderName,
       note: note ?? this.note,
-      publishTime: publishTime ?? this.publishTime,
+      createdTime: createdTime ?? this.createdTime,
+      updatedTime: updatedTime ?? this.updatedTime,
       type: type ?? this.type,
       account: account ?? this.account,
       cardPassword: cardPassword ?? this.cardPassword,
@@ -126,21 +134,23 @@ class BankInfo extends BaseSecureInfo {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
-      'name': this.name,
-      'bankImageUrl': this.bankImageUrl,
-      'bankCode': this.bankCode,
-      'holderName': this.holderName,
-      'note': this.note,
-      'publishTime': this.publishTime,
-      'type': this.type,
-      'account': this.account,
-      'cardPassword': this.cardPassword,
-      'cardNumber': this.cardNumber,
-      'creditCardType': this.creditCardType,
-      'expirationDate': this.expirationDate,
-      'cvv': this.cvv,
+      'name': name,
+      'bankImageUrl': bankImageUrl,
+      'bankCode': bankCode,
+      'holderName': holderName,
+      'note': note,
+      'createdTime': createdTime,
+      'updatedTime': updatedTime,
+      'type': type,
+      'account': account,
+      'cardPassword': cardPassword,
+      'cardNumber': cardNumber,
+      'creditCardType': creditCardType,
+      'expirationDate': expirationDate,
+      'cvv': cvv,
     };
   }
 
@@ -151,7 +161,8 @@ class BankInfo extends BaseSecureInfo {
       bankCode: map['bankCode'] as String,
       holderName: map['holderName'] as String,
       note: map['note'] as String,
-      publishTime: map['publishTime'] as int,
+      createdTime: map['createdTime'] as int,
+      updatedTime: map['updatedTime'] as int,
       type: map['type'] as BankType,
       account: map['account'] as String,
       cardPassword: map['cardPassword'] as String,
@@ -171,7 +182,8 @@ BankInfo createBankCard(
   String bankCode,
   String holderName,
   String note,
-  int publishTime,
+  int createdTime,
+  int updatedTime,
   String account,
   String cardPassword,
 ) {
@@ -181,7 +193,8 @@ BankInfo createBankCard(
     bankCode: bankCode,
     holderName: holderName,
     note: note,
-    publishTime: publishTime,
+    createdTime: createdTime,
+    updatedTime: updatedTime,
     type: BankType.bankAccount,
     account: account,
     cardPassword: cardPassword,
@@ -194,7 +207,8 @@ BankInfo createCreditCard(
   String bankCode,
   String holderName,
   String note,
-  int publishTime,
+  int createdTime,
+  int updatedTime,
   String cardNumber,
   CreditCardType creditCardType,
   String expirationDate,
@@ -206,7 +220,8 @@ BankInfo createCreditCard(
     bankCode: bankCode,
     holderName: holderName,
     note: note,
-    publishTime: publishTime,
+    createdTime: createdTime,
+    updatedTime: updatedTime,
     type: BankType.creditCard,
     cardNumber: cardNumber,
     creditCardType: creditCardType,

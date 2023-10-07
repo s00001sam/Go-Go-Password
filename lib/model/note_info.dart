@@ -9,12 +9,13 @@ class NoteInfo extends BaseSecureInfo {
   String name;
   String noteImageUrl;
   String note;
-  int publishTime;
-  List<String> recordFiles;
+  int createdTime;
+  int updatedTime;
 
   factory NoteInfo.fromJson(Map<String, dynamic> json) =>
       _$NoteInfoFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$NoteInfoToJson(this);
 
 //<editor-fold desc="Data Methods">
@@ -22,14 +23,15 @@ class NoteInfo extends BaseSecureInfo {
     required this.name,
     required this.noteImageUrl,
     required this.note,
-    required this.publishTime,
-    required this.recordFiles,
+    required this.createdTime,
+    required this.updatedTime,
   }) : super(
-          id: publishTime.toString(),
+          id: createdTime.toString(),
           title: name,
           description: '',
-          publishTime: publishTime,
           imageUrl: noteImageUrl,
+          createdTime: createdTime,
+          updatedTime: updatedTime,
         );
 
   @override
@@ -40,45 +42,46 @@ class NoteInfo extends BaseSecureInfo {
           name == other.name &&
           noteImageUrl == other.noteImageUrl &&
           note == other.note &&
-          publishTime == other.publishTime &&
-          recordFiles == other.recordFiles);
+          createdTime == other.createdTime &&
+          updatedTime == other.updatedTime);
 
   @override
   int get hashCode =>
       name.hashCode ^
       noteImageUrl.hashCode ^
       note.hashCode ^
-      publishTime.hashCode ^
-      recordFiles.hashCode;
+      createdTime.hashCode ^
+      updatedTime.hashCode;
 
   @override
   String toString() {
-    return 'NoteInfo{ name: $name, noteImageUrl: $noteImageUrl, note: $note, publishTime: $publishTime, recordFiles: $recordFiles,}';
+    return 'NoteInfo{ name: $name, noteImageUrl: $noteImageUrl, note: $note, createdTime: $createdTime, updatedTime: $updatedTime,}';
   }
 
-  NoteInfo copyWith({
+  NoteInfo copy({
     String? name,
     String? noteImageUrl,
     String? note,
-    int? publishTime,
-    List<String>? recordFiles,
+    int? createdTime,
+    int? updatedTime,
   }) {
     return NoteInfo(
       name: name ?? this.name,
       noteImageUrl: noteImageUrl ?? this.noteImageUrl,
       note: note ?? this.note,
-      publishTime: publishTime ?? this.publishTime,
-      recordFiles: recordFiles ?? this.recordFiles,
+      createdTime: createdTime ?? this.createdTime,
+      updatedTime: updatedTime ?? this.updatedTime,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
-      'name': this.name,
-      'noteImageUrl': this.noteImageUrl,
-      'note': this.note,
-      'publishTime': this.publishTime,
-      'recordFiles': this.recordFiles,
+      'name': name,
+      'noteImageUrl': noteImageUrl,
+      'note': note,
+      'createdTime': createdTime,
+      'updatedTime': updatedTime,
     };
   }
 
@@ -87,8 +90,8 @@ class NoteInfo extends BaseSecureInfo {
       name: map['name'] as String,
       noteImageUrl: map['noteImageUrl'] as String,
       note: map['note'] as String,
-      publishTime: map['publishTime'] as int,
-      recordFiles: map['recordFiles'] as List<String>,
+      createdTime: map['createdTime'] as int,
+      updatedTime: map['updatedTime'] as int,
     );
   }
 

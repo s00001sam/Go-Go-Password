@@ -1,0 +1,1 @@
+enum ContentEditState { onlyRead, editing }
