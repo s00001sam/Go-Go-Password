@@ -152,7 +152,7 @@ class MyTabBarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var stringResource = S.of(context);
+    var stringRes = S.of(context);
 
     return Center(
       child: DefaultTabController(
@@ -184,10 +184,10 @@ class MyTabBarContainer extends StatelessWidget {
                       labelColor: Colors.white,
                       unselectedLabelColor: Colors.black87,
                       tabs: [
-                        Tab(text: stringResource.tab_bar_title_all),
-                        Tab(text: stringResource.tab_bar_title_login),
-                        Tab(text: stringResource.tab_bar_title_bank),
-                        Tab(text: stringResource.tab_bar_title_note),
+                        Tab(text: stringRes.tab_bar_title_all),
+                        Tab(text: stringRes.tab_bar_title_login),
+                        Tab(text: stringRes.tab_bar_title_bank),
+                        Tab(text: stringRes.tab_bar_title_note),
                       ],
                     ),
                   ),
@@ -262,7 +262,7 @@ class SecureInfoTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var stringResource = S.of(context);
+    var stringRes = S.of(context);
     var theme = Theme.of(context);
 
     return Padding(
@@ -270,7 +270,7 @@ class SecureInfoTitle extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            stringResource.secure_info_total_count(count), // sam00 100
+            stringRes.secure_info_total_count(count), // sam00 100
             style: theme.textTheme.headlineLarge?.copyWith(
               fontWeight: FontWeight.normal,
               color: theme.colorScheme.onSurface,

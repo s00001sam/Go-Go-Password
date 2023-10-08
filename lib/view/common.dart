@@ -8,9 +8,9 @@ class EmptyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var stringResource = S.of(context);
+    var stringRes = S.of(context);
     var theme = Theme.of(context);
-    var description = stringResource.empty_description;
+    var description = stringRes.empty_description;
 
     return Center(
       child: Column(

@@ -29,22 +29,21 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
       var stateInit = widget.isEditor
           ? ContentEditState.editing
           : ContentEditState.onlyRead;
-      ref.read(contentEditStateProvider.notifier).state = stateInit;
+      var viewModelRead = ref.read(loginInfoContentViewModelProvider.notifier);
+      viewModelRead.updateState(contentEditState: stateInit);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final isEditing =
-        ref.watch(contentEditStateProvider) == ContentEditState.editing;
-    final stateReading = ref.read(contentEditStateProvider.notifier);
-    var stringResource = S.of(context);
-    final loginInfo = ref.watch(getLoginInfoProvider(widget.id));
+    var stringRes = S.of(context);
+    var viewModel = ref.watch(loginInfoContentViewModelProvider.notifier);
+    var viewState = ref.watch(loginInfoContentViewModelProvider);
+    final isEditing = viewState.contentEditState == ContentEditState.editing;
     var actionIcon = isEditing ? Icons.done : Icons.edit;
-    var loginStr = stringResource.tab_bar_title_login;
-    var title = isEditing
-        ? stringResource.edit_title(loginStr)
-        : ref.watch(loginInfoContentViewModelProvider.notifier).title;
+    var loginStr = stringRes.tab_bar_title_login;
+    var title = isEditing ? stringRes.edit_title(loginStr) : viewState.title;
+    final loginInfo = ref.watch(getLoginInfoProvider(widget.id));
 
     return Scaffold(
         appBar: BaseAppBar(
@@ -56,9 +55,13 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
               onPressed: () {
                 if (isEditing) {
                   // TODO save logic
-                  stateReading.state = ContentEditState.onlyRead;
+                  viewModel.updateState(
+                    contentEditState: ContentEditState.onlyRead,
+                  );
                 } else {
-                  stateReading.state = ContentEditState.editing;
+                  viewModel.updateState(
+                    contentEditState: ContentEditState.editing,
+                  );
                 }
               },
             ),
@@ -92,12 +95,12 @@ class LoginInfoContentBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var stringResource = S.of(context);
-    var nameStr = stringResource.input_title_name;
-    var webUrlStr = stringResource.input_title_web_url;
-    var accountStr = stringResource.input_title_account;
-    var passwordStr = stringResource.input_title_password;
-    var noteStr = stringResource.input_title_note;
+    var stringRes = S.of(context);
+    var nameStr = stringRes.input_title_name;
+    var webUrlStr = stringRes.input_title_web_url;
+    var accountStr = stringRes.input_title_account;
+    var passwordStr = stringRes.input_title_password;
+    var noteStr = stringRes.input_title_note;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
@@ -106,7 +109,7 @@ class LoginInfoContentBody extends StatelessWidget {
           children: [
             BaseInput(
               title: nameStr,
-              hint: stringResource.input_hint(nameStr),
+              hint: stringRes.input_hint(nameStr),
               focusNode: nameFocusNode,
               isEnabled: isEditing,
               onInputChanged: (input) {},
@@ -114,28 +117,28 @@ class LoginInfoContentBody extends StatelessWidget {
             const SizedBox(height: 12.0),
             BaseInput(
               title: webUrlStr,
-              hint: stringResource.input_hint(webUrlStr),
+              hint: stringRes.input_hint(webUrlStr),
               isEnabled: isEditing,
               onInputChanged: (input) {},
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: accountStr,
-              hint: stringResource.input_hint(accountStr),
+              hint: stringRes.input_hint(accountStr),
               isEnabled: isEditing,
               onInputChanged: (input) {},
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: passwordStr,
-              hint: stringResource.input_hint(passwordStr),
+              hint: stringRes.input_hint(passwordStr),
               isEnabled: isEditing,
               onInputChanged: (input) {},
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: noteStr,
-              hint: stringResource.input_hint(noteStr),
+              hint: stringRes.input_hint(noteStr),
               isMultiLine: true,
               isEnabled: isEditing,
               onInputChanged: (input) {},
