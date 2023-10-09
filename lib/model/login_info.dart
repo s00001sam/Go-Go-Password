@@ -23,14 +23,14 @@ class LoginInfo extends BaseSecureInfo {
 
 //<editor-fold desc="Data Methods">
   LoginInfo({
-    required this.name,
-    required this.webUrl,
-    required this.webImageUrl,
-    required this.account,
-    required this.password,
-    required this.note,
-    required this.createdTime,
-    required this.updatedTime,
+    this.name = '',
+    this.webUrl = '',
+    this.webImageUrl = '',
+    this.account = '',
+    this.password = '',
+    this.note = '',
+    this.createdTime = 0,
+    this.updatedTime = 0,
   }) : super(
           id: createdTime.toString(),
           title: name,

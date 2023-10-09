@@ -14,20 +14,21 @@ final getLoginInfoProvider = FutureProvider.family((ref, String id) {
   info.then((value) {
     // update title
     var viewModel = ref.read(loginInfoContentViewModelProvider.notifier);
-    viewModel.updateState(title: value?.title);
+    if (value != null) viewModel.updateState(loginInfo: value);
   });
   return info;
 });
 
 class LoginInfoContentViewModel extends StateNotifier<LoginInfoContentState> {
-  LoginInfoContentViewModel() : super(LoginInfoContentState());
+  LoginInfoContentViewModel()
+      : super(LoginInfoContentState(loginInfo: LoginInfo()));
 
   void updateState({
-    String? title,
+    LoginInfo? loginInfo,
     ContentEditState? contentEditState,
   }) {
     state = state.copyWith(
-      title: title,
+      loginInfo: loginInfo,
       contentEditState: contentEditState,
     );
   }
@@ -40,20 +41,20 @@ class LoginInfoContentViewModel extends StateNotifier<LoginInfoContentState> {
 }
 
 class LoginInfoContentState {
-  String title;
+  LoginInfo loginInfo;
   ContentEditState contentEditState;
 
   LoginInfoContentState({
-    this.title = '',
+    required this.loginInfo,
     this.contentEditState = ContentEditState.onlyRead,
   });
 
   LoginInfoContentState copyWith({
-    String? title,
+    LoginInfo? loginInfo,
     ContentEditState? contentEditState,
   }) {
     return LoginInfoContentState(
-      title: title ?? this.title,
+      loginInfo: loginInfo ?? this.loginInfo,
       contentEditState: contentEditState ?? this.contentEditState,
     );
   }

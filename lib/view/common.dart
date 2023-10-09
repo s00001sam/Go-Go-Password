@@ -88,18 +88,23 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
 class BaseInput extends StatelessWidget {
   final String title;
   final String hint;
+
+  // final String defaultText;
   final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
+  final TextEditingController textController;
   final Function(String)? onInputChanged;
 
   const BaseInput({
     required this.title,
-    required this.hint,
+    this.hint = '',
+    // this.defaultText = '',
     this.focusNode,
     this.isMultiLine = false,
     required this.isEnabled,
-    required this.onInputChanged,
+    required this.textController,
+    this.onInputChanged,
     Key? key,
   }) : super(key: key);
 
@@ -118,9 +123,11 @@ class BaseInput extends StatelessWidget {
         const SizedBox(height: 12.0),
         BaseInputTextField(
           hint: hint,
+          // defaultText: defaultText,
           focusNode: focusNode,
           isMultiLine: isMultiLine,
           isEnabled: isEnabled,
+          textController: textController,
           onInputChanged: onInputChanged,
         ),
       ],
@@ -130,16 +137,21 @@ class BaseInput extends StatelessWidget {
 
 class BaseInputTextField extends StatefulWidget {
   final String hint;
+
+  // final String defaultText;
   final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
+  final TextEditingController textController;
   final Function(String)? onInputChanged;
 
   const BaseInputTextField({
     required this.hint,
+    // required this.defaultText,
     this.focusNode,
     required this.isMultiLine,
     required this.isEnabled,
+    required this.textController,
     required this.onInputChanged,
     Key? key,
   }) : super(key: key);
@@ -149,7 +161,7 @@ class BaseInputTextField extends StatefulWidget {
 }
 
 class _BaseInputTextFieldState extends State<BaseInputTextField> {
-  final _myController = TextEditingController();
+  late final TextEditingController _myController = widget.textController;
 
   @override
   void initState() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gogo_password/generated/l10n.dart';
+import 'package:gogo_password/model/login_info.dart';
 import 'package:gogo_password/util/constants.dart';
 import 'package:gogo_password/view/common.dart';
 import 'login_info_content_view_model.dart';
@@ -21,15 +22,24 @@ class LoginInfoContentPage extends ConsumerStatefulWidget {
 }
 
 class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
+  bool changeToEditing = false;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController webUrlController = TextEditingController();
+  final TextEditingController accountController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // handle init state is editing or not
       var stateInit = widget.isEditor
           ? ContentEditState.editing
           : ContentEditState.onlyRead;
       var viewModelRead = ref.read(loginInfoContentViewModelProvider.notifier);
+      changeToEditing = stateInit == ContentEditState.editing;
       viewModelRead.updateState(contentEditState: stateInit);
     });
   }
@@ -42,7 +52,10 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
     final isEditing = viewState.contentEditState == ContentEditState.editing;
     var actionIcon = isEditing ? Icons.done : Icons.edit;
     var loginStr = stringRes.tab_bar_title_login;
-    var title = isEditing ? stringRes.edit_title(loginStr) : viewState.title;
+    var name = viewState.loginInfo.name;
+    var titleEnd = name.isEmpty ? loginStr : name;
+    var title = isEditing ? stringRes.edit_title(titleEnd) : titleEnd;
+
     final loginInfo = ref.watch(getLoginInfoProvider(widget.id));
 
     return Scaffold(
@@ -55,10 +68,20 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
               onPressed: () {
                 if (isEditing) {
                   // TODO save logic
+                  LoginInfo info = viewState.loginInfo.copy(
+                    name: nameController.text,
+                    webUrl: webUrlController.text,
+                    account: accountController.text,
+                    password: passwordController.text,
+                    note: noteController.text,
+                  );
+                  changeToEditing = false;
                   viewModel.updateState(
+                    loginInfo: info,
                     contentEditState: ContentEditState.onlyRead,
                   );
                 } else {
+                  changeToEditing = true;
                   viewModel.updateState(
                     contentEditState: ContentEditState.editing,
                   );
@@ -70,11 +93,20 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
         body: loginInfo.when(
           data: (data) {
             var nameFocusNode = FocusNode();
-            if (isEditing) nameFocusNode.requestFocus();
+            if (changeToEditing) {
+              changeToEditing = false;
+              nameFocusNode.requestFocus();
+            }
 
             return LoginInfoContentBody(
               isEditing: isEditing,
               nameFocusNode: nameFocusNode,
+              loginInfo: viewState.loginInfo,
+              nameController: nameController,
+              webUrlController: webUrlController,
+              accountController: accountController,
+              passwordController: passwordController,
+              noteController: noteController,
             );
           },
           error: (error, stackTrace) => ErrorView(error: error.toString()),
@@ -83,18 +115,37 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
   }
 }
 
-class LoginInfoContentBody extends StatelessWidget {
+class LoginInfoContentBody extends ConsumerWidget {
   final bool isEditing;
   final FocusNode? nameFocusNode;
+  final LoginInfo loginInfo;
 
-  const LoginInfoContentBody({
+  final TextEditingController nameController;
+  final TextEditingController webUrlController;
+  final TextEditingController accountController;
+  final TextEditingController passwordController;
+  final TextEditingController noteController;
+
+  LoginInfoContentBody({
     this.isEditing = false,
     this.nameFocusNode,
+    required this.loginInfo,
+    required this.nameController,
+    required this.webUrlController,
+    required this.accountController,
+    required this.passwordController,
+    required this.noteController,
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key) {
+    nameController.text = loginInfo.name;
+    webUrlController.text = loginInfo.webUrl;
+    accountController.text = loginInfo.account;
+    passwordController.text = loginInfo.password;
+    noteController.text = loginInfo.note;
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var stringRes = S.of(context);
     var nameStr = stringRes.input_title_name;
     var webUrlStr = stringRes.input_title_web_url;
@@ -110,38 +161,43 @@ class LoginInfoContentBody extends StatelessWidget {
             BaseInput(
               title: nameStr,
               hint: stringRes.input_hint(nameStr),
+              // defaultText: loginInfo.name,
               focusNode: nameFocusNode,
               isEnabled: isEditing,
-              onInputChanged: (input) {},
+              textController: nameController,
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: webUrlStr,
               hint: stringRes.input_hint(webUrlStr),
+              // defaultText: loginInfo.webUrl,
               isEnabled: isEditing,
-              onInputChanged: (input) {},
+              textController: webUrlController,
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: accountStr,
               hint: stringRes.input_hint(accountStr),
+              // defaultText: loginInfo.account,
               isEnabled: isEditing,
-              onInputChanged: (input) {},
+              textController: accountController,
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: passwordStr,
               hint: stringRes.input_hint(passwordStr),
+              // defaultText: loginInfo.password,
               isEnabled: isEditing,
-              onInputChanged: (input) {},
+              textController: passwordController,
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: noteStr,
               hint: stringRes.input_hint(noteStr),
+              // defaultText: loginInfo.note,
               isMultiLine: true,
               isEnabled: isEditing,
-              onInputChanged: (input) {},
+              textController: noteController,
             ),
           ],
         ),
