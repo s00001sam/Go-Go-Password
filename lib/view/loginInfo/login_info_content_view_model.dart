@@ -11,6 +11,7 @@ final loginInfoContentViewModelProvider =
 final getLoginInfoProvider = FutureProvider.family((ref, String id) {
   var info =
       ref.watch(loginInfoContentViewModelProvider.notifier).getLoginInfo(id);
+
   info.then((value) {
     // update title
     var viewModel = ref.read(loginInfoContentViewModelProvider.notifier);
@@ -35,7 +36,7 @@ class LoginInfoContentViewModel extends StateNotifier<LoginInfoContentState> {
 
   Future<LoginInfo?> getLoginInfo(String id) async {
     // TODO : change to use repository
-    Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 2));
     return login1;
   }
 }
