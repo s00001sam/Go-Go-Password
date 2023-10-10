@@ -1,11 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gogo_password/model/login_info.dart';
-import 'package:gogo_password/model/mock_datum.dart';
+import 'package:gogo_password/source/repo/base_repository.dart';
+import 'package:gogo_password/source/repo/gogo_respository.dart';
 import 'package:gogo_password/util/constants.dart';
 
 final loginInfoContentViewModelProvider =
     StateNotifierProvider<LoginInfoContentViewModel, LoginInfoContentState>(
-  (ref) => LoginInfoContentViewModel(),
+  (ref) => LoginInfoContentViewModel(
+    dataRepository: ref.watch(dataRepositoryProvider),
+  ),
 );
 
 final getLoginInfoProvider = FutureProvider.family((ref, String id) {
@@ -21,7 +24,9 @@ final getLoginInfoProvider = FutureProvider.family((ref, String id) {
 });
 
 class LoginInfoContentViewModel extends StateNotifier<LoginInfoContentState> {
-  LoginInfoContentViewModel()
+  final BaseRepository dataRepository;
+
+  LoginInfoContentViewModel({required this.dataRepository})
       : super(LoginInfoContentState(loginInfo: LoginInfo()));
 
   void updateState({
@@ -35,9 +40,12 @@ class LoginInfoContentViewModel extends StateNotifier<LoginInfoContentState> {
   }
 
   Future<LoginInfo?> getLoginInfo(String id) async {
-    // TODO : change to use repository
-    await Future.delayed(const Duration(seconds: 2));
-    return login1;
+    return await dataRepository.getSecureInfo(id: id) as LoginInfo?;
+  }
+
+  Future<void> saveLoginInfo({LoginInfo? loginInfo}) async {
+    var info = loginInfo ?? state.loginInfo;
+    await dataRepository.upsertLoginInfo(loginInfo: info);
   }
 }
 

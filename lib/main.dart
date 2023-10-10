@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gogo_password/router.dart';
+import 'package:gogo_password/source/database/gogo_database.dart';
 import 'package:gogo_password/theme/theme_constants.dart';
 import 'package:gogo_password/theme/type.dart';
-
 import 'generated/l10n.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await MyDB().init();
+
   runApp(const ProviderScope(
     child: MyApp(),
   ));

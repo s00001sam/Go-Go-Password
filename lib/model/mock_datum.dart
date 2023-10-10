@@ -1,6 +1,7 @@
 import 'package:gogo_password/model/bank_info.dart';
 import 'package:gogo_password/model/login_info.dart';
 import 'package:gogo_password/model/note_info.dart';
+import 'package:gogo_password/util/constants.dart';
 
 var allMockInfos = [login1, bank1, creditCard1, note1];
 

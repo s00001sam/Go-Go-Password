@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:gogo_password/model/base_secure_info.dart';
+import 'package:gogo_password/util/constants.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bank_info.g.dart';
@@ -228,15 +227,4 @@ BankInfo createCreditCard(
     expirationDate: expirationDate,
     cvv: cvv,
   );
-}
-
-enum BankType {
-  bankAccount,
-  creditCard,
-}
-
-enum CreditCardType {
-  visa,
-  masterCard,
-  other,
 }

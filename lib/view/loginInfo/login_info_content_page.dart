@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gogo_password/generated/l10n.dart';
 import 'package:gogo_password/model/login_info.dart';
+import 'package:gogo_password/router.dart';
 import 'package:gogo_password/util/constants.dart';
 import 'package:gogo_password/view/common.dart';
 import 'login_info_content_view_model.dart';
@@ -28,6 +29,39 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
   final TextEditingController accountController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
+
+  void changeEditingState(
+    bool isEditing,
+    LoginInfoContentViewModel viewModel,
+    LoginInfoContentState viewState,
+  ) {
+    if (isEditing) {
+      var now = DateTime.now().millisecondsSinceEpoch;
+      var isCreated = widget.id == DEFAULT_ID_CREATE;
+      var createdTime = isCreated ? now : viewState.loginInfo.createdTime;
+      var updatedTime = now;
+      LoginInfo info = viewState.loginInfo.copy(
+        name: nameController.text,
+        webUrl: webUrlController.text,
+        account: accountController.text,
+        password: passwordController.text,
+        note: noteController.text,
+        createdTime: createdTime,
+        updatedTime: updatedTime,
+      );
+      viewModel.saveLoginInfo(loginInfo: info);
+      changeToEditing = false;
+      viewModel.updateState(
+        loginInfo: info,
+        contentEditState: ContentEditState.onlyRead,
+      );
+    } else {
+      changeToEditing = true;
+      viewModel.updateState(
+        contentEditState: ContentEditState.editing,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -66,26 +100,7 @@ class _LoginInfoContentPageState extends ConsumerState<LoginInfoContentPage> {
               icon: Icon(actionIcon),
               tooltip: 'change editable mode',
               onPressed: () {
-                if (isEditing) {
-                  // TODO save logic
-                  LoginInfo info = viewState.loginInfo.copy(
-                    name: nameController.text,
-                    webUrl: webUrlController.text,
-                    account: accountController.text,
-                    password: passwordController.text,
-                    note: noteController.text,
-                  );
-                  changeToEditing = false;
-                  viewModel.updateState(
-                    loginInfo: info,
-                    contentEditState: ContentEditState.onlyRead,
-                  );
-                } else {
-                  changeToEditing = true;
-                  viewModel.updateState(
-                    contentEditState: ContentEditState.editing,
-                  );
-                }
+                changeEditingState(isEditing, viewModel, viewState);
               },
             ),
           ],

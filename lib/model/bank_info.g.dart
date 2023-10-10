@@ -52,10 +52,12 @@ Map<String, dynamic> _$BankInfoToJson(BankInfo instance) => <String, dynamic>{
 const _$BankTypeEnumMap = {
   BankType.bankAccount: 'bankAccount',
   BankType.creditCard: 'creditCard',
+  BankType.unKnown: 'unKnown',
 };
 
 const _$CreditCardTypeEnumMap = {
   CreditCardType.visa: 'visa',
   CreditCardType.masterCard: 'masterCard',
   CreditCardType.other: 'other',
+  CreditCardType.unKnown: 'unKnown',
 };

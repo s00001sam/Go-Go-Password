@@ -7,14 +7,14 @@ part of 'login_info.dart';
 // **************************************************************************
 
 LoginInfo _$LoginInfoFromJson(Map<String, dynamic> json) => LoginInfo(
-      name: json['name'] as String,
-      webUrl: json['webUrl'] as String,
-      webImageUrl: json['webImageUrl'] as String,
-      account: json['account'] as String,
-      password: json['password'] as String,
-      note: json['note'] as String,
-      createdTime: json['createdTime'] as int,
-      updatedTime: json['updatedTime'] as int,
+      name: json['name'] as String? ?? '',
+      webUrl: json['webUrl'] as String? ?? '',
+      webImageUrl: json['webImageUrl'] as String? ?? '',
+      account: json['account'] as String? ?? '',
+      password: json['password'] as String? ?? '',
+      note: json['note'] as String? ?? '',
+      createdTime: json['createdTime'] as int? ?? 0,
+      updatedTime: json['updatedTime'] as int? ?? 0,
     )
       ..id = json['id'] as String
       ..title = json['title'] as String
