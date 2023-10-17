@@ -93,6 +93,7 @@ class BaseInput extends StatelessWidget {
   final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
+  final bool isPassword;
   final TextEditingController textController;
   final Function(String)? onInputChanged;
 
@@ -103,6 +104,7 @@ class BaseInput extends StatelessWidget {
     this.focusNode,
     this.isMultiLine = false,
     required this.isEnabled,
+    this.isPassword = false,
     required this.textController,
     this.onInputChanged,
     Key? key,
@@ -127,6 +129,7 @@ class BaseInput extends StatelessWidget {
           focusNode: focusNode,
           isMultiLine: isMultiLine,
           isEnabled: isEnabled,
+          isPassword: isPassword,
           textController: textController,
           onInputChanged: onInputChanged,
         ),
@@ -142,6 +145,7 @@ class BaseInputTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
+  final bool isPassword;
   final TextEditingController textController;
   final Function(String)? onInputChanged;
 
@@ -151,6 +155,7 @@ class BaseInputTextField extends StatefulWidget {
     this.focusNode,
     required this.isMultiLine,
     required this.isEnabled,
+    required this.isPassword,
     required this.textController,
     required this.onInputChanged,
     Key? key,
@@ -162,9 +167,11 @@ class BaseInputTextField extends StatefulWidget {
 
 class _BaseInputTextFieldState extends State<BaseInputTextField> {
   late final TextEditingController _myController = widget.textController;
+  bool _passwordVisible = false;
 
   @override
   void initState() {
+    _passwordVisible = false;
     _myController.addListener(() {
       var input = _myController.text;
       debugPrint('input = $input');
@@ -202,26 +209,54 @@ class _BaseInputTextFieldState extends State<BaseInputTextField> {
       ),
     );
     var maxLines = widget.isMultiLine ? null : 1;
+    var isTextVisible = !widget.isPassword || _passwordVisible;
+    var passwordSuffix = const Icon(
+      Icons.visibility,
+      color: Colors.transparent,
+    );
+    var passwordEyeButtonOrEmpty = widget.isPassword
+        ? IconButton(
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: theme.colorScheme.primary,
+            ),
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+            splashColor: Colors.transparent,
+          )
+        : const SizedBox();
 
-    return TextField(
-      decoration: InputDecoration(
-        border: normalBorder,
-        hintText: widget.hint,
-        hintStyle: theme.textTheme.bodyLarge?.copyWith(
-          color: Colors.black38,
+    return Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            border: normalBorder,
+            hintText: widget.hint,
+            hintStyle: theme.textTheme.bodyLarge?.copyWith(
+              color: Colors.black38,
+            ),
+            fillColor: theme.colorScheme.secondary,
+            filled: true,
+            focusedBorder: focusBorder,
+            enabledBorder: enableBorder,
+            suffixIcon: widget.isPassword ? passwordSuffix : const SizedBox(),
+          ),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.primary,
+          ),
+          controller: _myController,
+          enabled: widget.isEnabled,
+          maxLines: maxLines,
+          focusNode: widget.focusNode,
+          obscureText: !isTextVisible,
+          enableInteractiveSelection: false,
         ),
-        fillColor: theme.colorScheme.secondary,
-        filled: true,
-        focusedBorder: focusBorder,
-        enabledBorder: enableBorder,
-      ),
-      style: theme.textTheme.bodyLarge?.copyWith(
-        color: theme.colorScheme.primary,
-      ),
-      controller: _myController,
-      enabled: widget.isEnabled,
-      maxLines: maxLines,
-      focusNode: widget.focusNode,
+        passwordEyeButtonOrEmpty,
+      ],
     );
   }
 }

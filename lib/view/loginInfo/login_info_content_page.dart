@@ -203,6 +203,7 @@ class LoginInfoContentBody extends ConsumerWidget {
               hint: stringRes.input_hint(passwordStr),
               // defaultText: loginInfo.password,
               isEnabled: isEditing,
+              isPassword: true,
               textController: passwordController,
             ),
             const SizedBox(height: 12.0),
