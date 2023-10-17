@@ -176,16 +176,15 @@ class LoginInfoContentBody extends ConsumerWidget {
             BaseInput(
               title: nameStr,
               hint: stringRes.input_hint(nameStr),
-              // defaultText: loginInfo.name,
               focusNode: nameFocusNode,
               isEnabled: isEditing,
+              isAutoFocus: true,
               textController: nameController,
             ),
             const SizedBox(height: 12.0),
             BaseInput(
               title: webUrlStr,
               hint: stringRes.input_hint(webUrlStr),
-              // defaultText: loginInfo.webUrl,
               isEnabled: isEditing,
               textController: webUrlController,
             ),
@@ -193,7 +192,6 @@ class LoginInfoContentBody extends ConsumerWidget {
             BaseInput(
               title: accountStr,
               hint: stringRes.input_hint(accountStr),
-              // defaultText: loginInfo.account,
               isEnabled: isEditing,
               textController: accountController,
             ),
@@ -201,7 +199,6 @@ class LoginInfoContentBody extends ConsumerWidget {
             BaseInput(
               title: passwordStr,
               hint: stringRes.input_hint(passwordStr),
-              // defaultText: loginInfo.password,
               isEnabled: isEditing,
               isPassword: true,
               textController: passwordController,
@@ -210,7 +207,6 @@ class LoginInfoContentBody extends ConsumerWidget {
             BaseInput(
               title: noteStr,
               hint: stringRes.input_hint(noteStr),
-              // defaultText: loginInfo.note,
               isMultiLine: true,
               isEnabled: isEditing,
               textController: noteController,

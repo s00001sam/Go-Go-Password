@@ -94,17 +94,18 @@ class BaseInput extends StatelessWidget {
   final bool isMultiLine;
   final bool isEnabled;
   final bool isPassword;
+  final bool isAutoFocus;
   final TextEditingController textController;
   final Function(String)? onInputChanged;
 
   const BaseInput({
     required this.title,
     this.hint = '',
-    // this.defaultText = '',
     this.focusNode,
     this.isMultiLine = false,
     required this.isEnabled,
     this.isPassword = false,
+    this.isAutoFocus = false,
     required this.textController,
     this.onInputChanged,
     Key? key,
@@ -125,11 +126,11 @@ class BaseInput extends StatelessWidget {
         const SizedBox(height: 12.0),
         BaseInputTextField(
           hint: hint,
-          // defaultText: defaultText,
           focusNode: focusNode,
           isMultiLine: isMultiLine,
           isEnabled: isEnabled,
           isPassword: isPassword,
+          isAutoFocus: isAutoFocus,
           textController: textController,
           onInputChanged: onInputChanged,
         ),
@@ -140,12 +141,11 @@ class BaseInput extends StatelessWidget {
 
 class BaseInputTextField extends StatefulWidget {
   final String hint;
-
-  // final String defaultText;
   final FocusNode? focusNode;
   final bool isMultiLine;
   final bool isEnabled;
   final bool isPassword;
+  final bool isAutoFocus;
   final TextEditingController textController;
   final Function(String)? onInputChanged;
 
@@ -156,6 +156,7 @@ class BaseInputTextField extends StatefulWidget {
     required this.isMultiLine,
     required this.isEnabled,
     required this.isPassword,
+    required this.isAutoFocus,
     required this.textController,
     required this.onInputChanged,
     Key? key,
@@ -254,6 +255,7 @@ class _BaseInputTextFieldState extends State<BaseInputTextField> {
           focusNode: widget.focusNode,
           obscureText: !isTextVisible,
           enableInteractiveSelection: false,
+          autofocus: widget.isAutoFocus,
         ),
         passwordEyeButtonOrEmpty,
       ],
